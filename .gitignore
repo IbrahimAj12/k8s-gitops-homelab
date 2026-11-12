@@ -1,0 +1,14 @@
+# Terraform secrets and state
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ansible & OS artifacts
+*.retry
+.DS_Store

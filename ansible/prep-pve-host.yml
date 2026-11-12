@@ -1,0 +1,28 @@
+---
+- name: Harden Proxmox Host & Configure LXC Kernel Profile for K3s
+  hosts: 100.75.81.69
+  remote_user: root
+  tasks:
+    - name: Ignore physical case power button taps
+      ansible.builtin.lineinfile:
+        path: /etc/systemd/logind.conf
+        regexp: '^#?HandlePowerKey='
+        line: 'HandlePowerKey=ignore'
+      notify: Restart systemd-logind
+
+    - name: Append K3s LXC kernel capabilities to containers 210, 211, 212
+      ansible.builtin.blockinfile:
+        path: "/etc/pve/lxc/{{ item }}.conf"
+        marker: "# {mark} ANSIBLE MANAGED K3S BLOCK"
+        block: |
+          lxc.apparmor.profile: unconfined
+          lxc.cgroup2.devices.allow: a
+          lxc.cap.drop:
+          lxc.mount.auto: "proc:rw sys:rw"
+      loop: [210, 211, 212]
+
+  handlers:
+    - name: Restart systemd-logind
+      ansible.builtin.systemd:
+        name: systemd-logind
+        state: restarted
