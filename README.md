@@ -110,7 +110,7 @@ kubectl apply -f gitops/argocd/monitoring-app.yaml
 ## Live Platform Observability & GitOps State
 
 ### ArgoCD Continuous Reconciliation (`Synced` & `Healthy`)
-![ArgoCD Applications Status](docs/argocd-apps.png)
+![ArgoCD Applications Status](docs/argocdss.png)
 
 ### Grafana Cluster & Microservices Telemetry (`online-boutique`)
-![Grafana Namespace Pod Metrics](docs/grafana-monitoring.png)
+![Grafana Namespace Pod Metrics](docs/grafanass.png)
